@@ -1,6 +1,21 @@
-version: '3'
-
 services:
+  backend:
+    build: ./back-end
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://mustafa:admin@db:5432/link-shortner?schema=public
+      JWT_SECRET: '123'
+    depends_on:
+      - db
+
+  frontend:
+    build: ./front-end
+    ports:
+      - "3006:80"
+    depends_on:
+      - backend
+
   db:
     image: postgres:15
     restart: always
@@ -12,23 +27,6 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    environment:
-      DATABASE_URL: postgresql://mustafa:admin@db:5432/link-shortner?schema=public
-      JWT_SECRET: '123'
-    depends_on:
-      - db
-      
-  frontend:
-  build: ./frontend
-  ports:
-    - "3006:80"
-  depends_on:
-    - backend
 
 volumes:
   pgdata:
