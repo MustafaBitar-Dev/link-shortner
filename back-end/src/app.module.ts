@@ -6,6 +6,9 @@ import { User } from './auth/entities/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { RefreshToken } from './auth/entities/refresh-tokens.entity';
+import { Link } from './links/links.entity';
+import { LinkModule } from './links/link.module';
+
 
 @Module({
    imports: [
@@ -13,6 +16,7 @@ import { RefreshToken } from './auth/entities/refresh-tokens.entity';
       global: true,
       secret: "123",
     }),
+    // I will use config and .env file later
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -20,10 +24,11 @@ import { RefreshToken } from './auth/entities/refresh-tokens.entity';
       username: 'mustafa',
       password: 'admin',
       database: 'link-shortner',
-      entities: [User, RefreshToken],
+      entities: [User, RefreshToken, Link],
       synchronize: true,
     }),
     AuthModule,
+    LinkModule,
   ],
   controllers: [AppController],
   providers: [AppService],

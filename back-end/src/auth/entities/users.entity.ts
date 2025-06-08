@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { RefreshToken } from './refresh-tokens.entity';
+import { Link } from '../../links/links.entity';
 
 @Entity('users')
 export class User {
@@ -20,6 +21,9 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Link, (link) => link.user)
+  links: Link[];
 
   @OneToMany(() => RefreshToken, refreshToken => refreshToken.userId)
   refreshTokens: RefreshToken[];

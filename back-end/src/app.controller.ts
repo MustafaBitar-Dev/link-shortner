@@ -2,7 +2,7 @@ import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from './guards/auth.guard';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard) // I wanted to do something with token but I dont have time :)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
