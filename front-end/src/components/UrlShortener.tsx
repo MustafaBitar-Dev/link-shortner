@@ -19,7 +19,7 @@ const UrlShortener: React.FC = () => {
   const [form] = Form.useForm<FormValues>();
 
   // Generate or retrieve guestId
-  const getGuestHeaders = (): Record<string, string> => {
+  const getUserId = (): Record<string, string> => {
     let guestId = localStorage.getItem('guestId');
     if (!guestId) {
       guestId = uuid();
@@ -33,11 +33,12 @@ const UrlShortener: React.FC = () => {
   };
 
   const onFinish = async (values: FormValues): Promise<void> => {
+    console.log('Form submitted:', values);
     setLoading(true);
     try {
-      const headers = getGuestHeaders();
+      const headers = getUserId();
 
-      const response = await fetch('http://localhost:3000/api/shorten', {
+      const response = await fetch('http://localhost:3000/links/create', {
         method: 'POST',
         headers,
         body: JSON.stringify({ url: values.url })

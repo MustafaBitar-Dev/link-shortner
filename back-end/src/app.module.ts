@@ -29,6 +29,7 @@ import { LinkModule } from './links/link.module';
     }),
     AuthModule,
     LinkModule,
+    TypeOrmModule.forFeature([Link]),
   ],
   controllers: [AppController],
   providers: [AppService],
